@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &ran);
     MPI_Comm_size(MPI_COMM_WORLD, &tam);
-    if (size != M) {
+    if (tam != M) {
         printf("Este programa debe ejecutarse con exactamente %d procesos.\n", M);
         MPI_Abort(MPI_COMM_WORLD, 1);
     }
@@ -30,7 +30,9 @@ int main(int argc, char *argv[]) {
     generarPares(vectores[ran], ini, fin, inc, N);
     printf("Proceso %d: ", ran);
     for (int i = 0; i < N; ++i) {
-        printf("%d ", vectores[ran][i]);
+        if(vectores[ran][i]>0 && vectores[ran][i]<100000){
+           printf("%d ", vectores[ran][i]);
+        }
     }
     printf("\n");
     free(vectores[ran]);
